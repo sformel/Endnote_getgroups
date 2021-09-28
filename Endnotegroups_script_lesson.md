@@ -1,6 +1,8 @@
 ## Get Group Metadata From Endnote
 
-####Using Apple Scripts
+#### Using Apple Scripts
+
+_last updated Sep 27, 2021_
 
 Endnote allows you to create rich metadata by the creation of groups, but doesn't make it easy to export the group information.  I've been managing a shared library that is being used by about 30 people. I needed a way to create a daily log of which records were in which groups so I could make repairs to the library when mistakes were made.  I also needed to be able to generate sumary statistics to understand how many unqiue records were in each group, and how many records were shared, and which groups they were shared by.
 
