@@ -11,7 +11,7 @@ In the end, my need for a solution (after several very tedious repairs to the li
 Here are some links that helped me out: 
 
 - [Apple Script Dictionaries](https://apple.stackexchange.com/questions/46521/how-do-i-find-out-the-applescript-commands-available-for-a-particular-app)
-- [How to write function to write to text file]([https://macosxautomation.com/applescript/sbrt/sbrt-09.html)
+- [How to write function to write to text file](https://macosxautomation.com/applescript/sbrt/sbrt-09.html)
 
 #### A few notes
 * I've successfiully used this in Endnote X9, I wouldn't be surprised if it doesn't work for all versions.
@@ -121,6 +121,64 @@ end write_to_file
 Entire script.  Run in Mac Program named "Script Editor" (Applicatoins > Utilities).  To view progress: View > Show log
 
 ```
-#https://apple.stackexchange.com/questions/46521/how-do-i-find-out-the-applescript-commands-available-for-a-particular-app#https://macosxautomation.com/applescript/sbrt/sbrt-09.html#Get groups for all references in Endnote Libraryset AppleScript's text item delimiters to "
-"## Set date for filenameset dateObj to (current date)set theMonth to text -1 thru -2 of ("0" & (month of dateObj as number))set theDay to text -1 thru -2 of ("0" & day of dateObj)set theYear to year of dateObjset dateStamp to "" & theYear & theMonth & theDaytell application "EndNote X9"	open "Macintosh HD:Users:stephenformelnoaa:Documents:My Endnote Library.enl"	set myGroups to get groups of type "CUSTOM" in window 3	set finalprod to {}		repeat with thegroup in myGroups		set recordIDs to get records in thegroup in window 3		repeat with theRecord in recordIDs			set title to field "Title" of record theRecord			set ufRecord to unformatted record theRecord			set the end of finalprod to {(thegroup as text) & "|" & (theRecord as text) & "|" & (ufRecord as text) & "|" & (title as text)} as text					end repeat	end repeat		##return (finalprod)	set finalprod to finalprod as text		set this_data to finalprod	set this_file to ((("Macintosh HD:Users:stephenformelnoaa:Documents:MDBC Endnote Logs:MDBC_Endnote_group_records_" & dateStamp & ".txt") as string))	my write_to_file(this_data, this_file, false)		quit #quite Endnote	end tell##Subroutine to write to text fileon write_to_file(this_data, target_file, append_data)	try		set the target_file to the target_file		set the open_target_file to open for access file target_file with write permission		if append_data is false then set eof of the open_target_file to 0		write this_data to the open_target_file starting at eof		close access the open_target_file		return true	on error		try			close access file target_file		end try		return false	end tryend write_to_file
+#https://apple.stackexchange.com/questions/46521/how-do-i-find-out-the-applescript-commands-available-for-a-particular-app
+#https://macosxautomation.com/applescript/sbrt/sbrt-09.html
+
+#Get groups for all references in Endnote Library
+
+set AppleScript's text item delimiters to "
+"
+
+## Set date for filename
+set dateObj to (current date)
+set theMonth to text -1 thru -2 of ("0" & (month of dateObj as number))
+set theDay to text -1 thru -2 of ("0" & day of dateObj)
+set theYear to year of dateObj
+set dateStamp to "" & theYear & theMonth & theDay
+
+tell application "EndNote X9"
+	open "Macintosh HD:Users:stephenformelnoaa:Documents:My Endnote Library.enl"
+	set myGroups to get groups of type "CUSTOM" in window 3
+	set finalprod to {}
+	
+	repeat with thegroup in myGroups
+		set recordIDs to get records in thegroup in window 3
+		repeat with theRecord in recordIDs
+			set title to field "Title" of record theRecord
+			set ufRecord to unformatted record theRecord
+			set the end of finalprod to {(thegroup as text) & "|" & (theRecord as text) & "|" & (ufRecord as text) & "|" & (title as text)} as text
+			
+		end repeat
+	end repeat
+	
+	##return (finalprod)
+	set finalprod to finalprod as text
+	
+	set this_data to finalprod
+	set this_file to ((("Macintosh HD:Users:stephenformelnoaa:Documents:MDBC Endnote Logs:MDBC_Endnote_group_records_" & dateStamp & ".txt") as string))
+	my write_to_file(this_data, this_file, false)
+	
+	quit #quite Endnote
+	
+end tell
+
+
+
+##Subroutine to write to text file
+
+on write_to_file(this_data, target_file, append_data)
+	try
+		set the target_file to the target_file
+		set the open_target_file to open for access file target_file with write permission
+		if append_data is false then set eof of the open_target_file to 0
+		write this_data to the open_target_file starting at eof
+		close access the open_target_file
+		return true
+	on error
+		try
+			close access file target_file
+		end try
+		return false
+	end try
+end write_to_file
 ```
