@@ -21,6 +21,9 @@ Here are some links that helped me out:
 * I bring this output into R for comparison and stats, but you could just as easily work with it in Python or other languages.
 * I tried to run this on the shared library while I was logged in as another user instead of as the owner.  Endnote won't allow this, you must be the library owner to run these queries.
 
+
+#### Script Walk through (complete scrtip at end)
+
 Set the default delimiter to newline
 
 ```set AppleScript's text item delimiters to "\n"```
@@ -120,7 +123,9 @@ end write_to_file
 ```
 
 
-Entire script.  Run in Mac Program named "Script Editor" (Applicatoins > Utilities).  To view progress: View > Show log
+#### Entire script
+
+Copy this into a the Mac Program, "Script Editor" (Applications > Utilities). Press play to run. To view progress: View > Show log
 
 ```
 #https://apple.stackexchange.com/questions/46521/how-do-i-find-out-the-applescript-commands-available-for-a-particular-app
