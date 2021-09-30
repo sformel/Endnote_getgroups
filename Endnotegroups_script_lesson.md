@@ -54,7 +54,7 @@ open "Macintosh HD:Users:yourusername:Documents:My Endnote Library.enl"
 Set variable "myGroups" to the list of "Custom" groups.  Window 3 refers to the 3rd window in Endnote, according to Apple Scripts.
 
 ```
-set myGroups to get groups of type "CUSTOM" in window 3
+set myGroups to get groups of type "CUSTOM" in window "My Endnote Library.enl"
 ```
 Make empty array named "finalprod"
 ```     
@@ -74,7 +74,7 @@ Add a line to the end of the array "final product" that consists of 4 elements c
 
 ```
 repeat with thegroup in myGroups
-        set recordIDs to get records in thegroup in window 3
+        set recordIDs to get records in thegroup in window "My Endnote Library.enl"
         repeat with theRecord in recordIDs
                 set title to field "Title" of record theRecord
                 set ufRecord to unformatted record theRecord
